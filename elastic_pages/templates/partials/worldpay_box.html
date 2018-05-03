@@ -1,0 +1,26 @@
+<div class="content-box worldpay_screen-box">
+    <div class="carousel-holder">
+        <div class="product-detail-gallery">
+            <div class="fotorama"
+                 data-arrows="false"
+                 data-click="false"
+                 data-loop="true"
+                 data-swipe="false"
+                 data-width="100%"
+{#                 data-minheight="220px"#}
+                 data-maxwidth="1440px"
+                 data-maxheight="736px"
+                 data-autoplay="true">
+            {% for element in slide_elems %}
+                <div class="carousel-item" data-img="{{ element.background.url }}">
+                    <h1>{{ element.title }}</h1>
+                    <p class="text">{{ element.text | safe }}</p>
+                    {% if element.button %}
+                        <a href="{{ element.button.get_link }}" class="color-button {{ element.button.get_color_display|lower }} {{ element.button.get_glyphicon_display|lower }}">{{ element.button.title | safe }}</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

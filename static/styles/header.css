@@ -1,0 +1,272 @@
+/* ------------   Header  -------------- */
+
+header {
+    padding: 20px 30px 0;
+    max-width: 1380px;
+    min-width: 677px;
+    background: #FFFFFF;
+    height: 134px;
+    margin-bottom: 0;
+}
+
+.left-block {
+    float: left;
+}
+
+.right-block {
+    float: right;
+}
+
+/* -- Header: -- Logo line ------------- */
+
+/* -- Header:Logo line: - Left Block --- */
+
+.border-vertical-line {
+    margin: 0;
+    width: 1px;
+    height: 63px;
+    background: #D9D9D9;
+    float: left;
+}
+
+.header-logo-box {
+    color: #6A6A6A;
+    float: left;
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+.logo {
+    margin: 1px 26px 0 10px;
+    float: left;
+}
+
+.logo img {
+    width: 118px;
+    height: 67px;
+}
+
+.lang-dropdown {
+    color : #6A6A6A;
+    padding-right: 16px;
+    border: none;
+    font-size: 14px;
+    margin: 23px 0 0 7px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    overflow: hidden;
+    background: url(../images/dropdown-apc.jpeg) 100% 46% / 25% no-repeat;
+}
+
+/* -- Header:Logo line: - Right Block -- */
+
+.header-logo-box .right-block {
+    margin-top: 15px;
+}
+
+header .search-box {
+    float: left;
+    overflow: hidden;
+}
+
+header .search-box label {
+    margin-right: 15px;
+    float: left;
+    margin-top: 8px;
+}
+
+header .search-box input {
+    border-radius: 14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border: 0 solid #FFFFFF;
+    background: #EBEBEB;
+    line-height: 28px;
+    padding: 0 10px;
+    margin-right: 10px;
+    width: 212px;
+}
+
+.socsites-box {
+    float: right;
+    margin-top: 1px;
+}
+
+.socsites-box a {
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-left: 5px;
+}
+
+.socsites-box .border-vertical-line {
+    height: 24px;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
+.socsites-box:last-child {
+    margin-right: 7px;
+    min-width: 50px;
+}
+
+.socsites-box img {
+    width: 25px;
+    height: 25px;
+}
+
+/* -- Header: -- Panel line ------------ */
+
+.header-panel-box {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+.header-panel-box .right-block {
+    width: 25%;
+}
+
+.header-panel-box ol {
+    padding: 0;
+    margin: 0;
+}
+
+.header-panel-box ol li {
+    float: left;
+    color: #6A6A6A;
+    list-style: none;
+    cursor: pointer;
+}
+
+.header-panel-box ol:last-child li:last-child {
+    margin-right: 0;
+}
+
+.header-panel-box ol li a {
+    color: #6A6A6A;
+    text-decoration: none;
+    line-height: 42px;
+    display: inline-block;
+    padding: 0 15px 8px 15px;
+}
+
+.glyphicon {
+    margin-left: 10px;
+}
+
+.header-panel-box ol li.dropdown-block ul a:hover {
+    background: #28ADCC;
+    color: #FFFFFF;
+}
+
+.header-panel-box ol .header-panel-box-active,
+.header-panel-box ol li a:hover {
+    background: #999999;
+    color: #FFFFFF;
+}
+
+.dropdown-block {
+    position: relative;
+    z-index: 1;
+}
+
+.header-panel-box ol li ul,
+.header-panel-box ol:hover li:not(:hover) ul {
+    position: absolute;
+    top: 100%;
+    right: -1px;
+    width: 176px;
+    color: #FFFFFF;
+    background: #6A6A6A;
+    cursor: default;
+    padding: 10px 0 18px 0;
+    visibility: hidden;
+    border: 1px solid #EBEBEB;
+    border-top: none;
+}
+
+.header-panel-box ol li:hover ul,
+.header-panel-box ol li:focus ul {
+    visibility: visible;
+}
+
+.header-panel-box ol li ul li:focus,
+.header-panel-box ol li ul li:hover {
+    background: #999999;
+}
+
+.header-panel-box ol li ul li,
+.header-panel-box ol li ul li:first-child {
+    margin: 0;
+    line-height: 29px;
+}
+
+
+.header-panel-box ol li ul li a,
+.header-panel-box ol li ul li a:first-child {
+    color: #FFFFFF;
+    display: inline-block;
+    width: 156px;
+    font-size: 15px;
+    line-height: 29px;
+    padding: 0 0 0 20px;
+}
+
+.header-panel-box .imgpsh {
+    width: 140px;
+    position: absolute;
+    height: 24px;
+    right: 20px;
+    bottom: 20px;
+}
+
+/* -- Header: -- Help Box  ------------- */
+#help-box {
+    background: #28ADCC;
+    color: #FFFFFF;
+    padding: 15px 0 12px;
+}
+
+#help-box p {
+    color: #FFFFFF;
+    line-height: 26px;
+    text-align: center;
+}
+
+#help-box p b {
+    color: #FFFFFF;
+}
+
+#help-box .header-button {
+    display: inline-block;
+    padding: 0 15px;
+    background: #FFFFFF;
+    line-height: 29px;
+    font-size: 14px;
+    width: 220px;
+    color: #1D6F82;
+    text-decoration: none;
+    border: 1px solid #FFFFFF;
+    border-radius: 30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+}
+
+#help-box .header-button.arrow {
+    background: url('../images/button-dark_blue-arrow.jpeg') 94% / 6% 46% no-repeat, #FFFFFF;
+}
+/* ------ Media (737px ~ 1025px) ------ */
+
+/*@media (min-width: 737px) and (max-width: 1025px) {*/
+    /*#help-box {*/
+        /*padding: 15px 15% 12px;*/
+    /*}*/
+/*}*/
+
+@media (min-width: 737px) and (max-width: 757px) {
+    .search-box input {
+        width: 200px;
+    }
+}

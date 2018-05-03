@@ -1,0 +1,136 @@
+{% load static %}
+<div class="content-box latest-box">
+    <h2 class="latest">Latest</h2>
+    <ul class="no-desktop column-tabs">
+        <li class="first active">Our Videos</li>
+        <li class="middle">Our Docs</li>
+        <li class="last">What's Happening</li>
+    </ul>
+    <div class="columns-container">
+        <div class="column left border first">
+            <div class="column-holder">
+                <span class="no-mobile column-title">Our Videos</span>
+                <div class="column-video-container column-video">
+                    {% if video_1.get_video.embed_video %}
+                        {{ video_1.get_video.embed_video|safe }}
+                    {% else %}
+                        <video width="100%" height="100%" controls>
+                            <source src="{{ video_1.get_video.video }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                    <div class="video-holder"></div>
+                </div>
+                <span class="video-title">{{ video_1.name }}</span>
+                <p class="video-text">{{ video_1.description }}</p>
+                <div class="column-video-container">
+                    <div class="video-small left">
+                        {% if video_2.get_video.embed_video %}
+                            {{ video_2.get_video.embed_video|safe }}
+                        {% else %}
+                            <video width="100%" height="100%" controls>
+                                <source src="{{ video_2.get_video.video }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <div class="video-holder"></div>
+                    </div>
+                    <span class="video-title">{{ video_2.name }}</span>
+                    <p class="video-text">{{ video_2.description }}</p>
+                </div>
+                <div class="column-video-container">
+                    <div class="video-small left">
+                        {% if video_3.get_video.embed_video %}
+                            {{ video_3.get_video.embed_video|safe }}
+                        {% else %}
+                            <video width="100%" height="100%" controls>
+                                <source src="{{ video_3.get_video.video }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <div class="video-holder"></div>
+                    </div>
+                    <span class="video-title">{{ video_3.name }}</span>
+                    <p class="video-text">{{ video_3.description }}</p>
+                </div>
+            </div>
+            <a href="{% url 'knowledge-base' %}" class="color-button blue">See all</a>
+        </div>
+        <div class="column left border middle">
+            <div class="column-holder">
+                <span class="no-mobile column-title">Our Docs</span>
+                {% for doc in docs %}
+                    <div class="column-bullet-container">
+                        <div class="bullet-container">
+                            <span class="bullet pdf left"></span>
+                            <div class="bullet-content">
+                                <a class="bullet-title" href="{{ doc.file.url }}" target="_blank">{{ doc.name }}</a>
+                                <p class="bullet-text">{{ doc.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'knowledge-base' %}" class="color-button green">See all</a>
+        </div>
+        <div class="column left last">
+            <div class="column-holder">
+                <span class="no-mobile column-title">What's Happening</span>
+                {% if news.0 %}
+                    <div class="column-bullet-container">
+                        <div class="bullet-container">
+                            <span class="bullet news left"></span>
+                            <div class="bullet-content">
+                                <p class="bullet-title"><a class="bullet-title" href="{% url 'company-news_detail' news.0.id %}" target="_blank">{{ news.0.title|safe }}</a>
+                                    <br>
+                                    {{ news.0.publicated|date:"M j" }}
+                                </p>
+                                <p class="bullet-text">{{ news.0.description|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if twitts.0 %}
+                    <div class="column-bullet-container">
+                        <div class="bullet-container">
+                            <span class="bullet twitter left"></span>
+                            <div class="bullet-content">
+                                <p class="bullet-title"><a class="bullet-title" href="{{ twitts.0.link }}" target="_blank">{{ twitts.0.title|safe }}</a>
+                                    <br>
+                                    {{ twitts.0.publicated|date:"M j" }}
+                                </p>
+                                <p class="bullet-text">{{ twitts.0.description|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if news.1 %}
+                    <div class="column-bullet-container">
+                        <div class="bullet-container">
+                            <span class="bullet news left"></span>
+                            <div class="bullet-content">
+                                <p class="bullet-title"><a class="bullet-title" href="{% url 'company-news_detail' news.1.id %}" target="_blank">{{ news.1.title|safe }}</a>
+                                    <br>
+                                    {{ news.1.publicated|date:"M j" }}
+                                </p>
+                                <p class="bullet-text">{{ news.1.description|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if twitts.1 %}
+                    <div class="column-bullet-container">
+                        <div class="bullet-container">
+                            <span class="bullet twitter left"></span>
+                            <div class="bullet-content">
+                                <p class="bullet-title"><a class="bullet-title" href="{{ twitts.1.link }}" target="_blank">{{ twitts.1.title|safe }}</a>
+                                    <br>
+                                    {{ twitts.1.publicated|date:"M j" }}
+                                </p>
+                                <p class="bullet-text">{{ twitts.1.description|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <a href="{% url 'knowledge-base' %}" class="color-button orange">Read Blog</a>
+        </div>
+    </div>
+</div>

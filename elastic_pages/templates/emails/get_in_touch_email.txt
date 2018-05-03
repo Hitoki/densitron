@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% trans 'Title:' %} {{ email.head }}
+
+{% trans 'Message:' %} {{ email.comments }}
+
+{% trans 'From:' %}
+    {% trans 'First Name:' %} {{ email.first_name }}
+    {% trans 'Surname:' %} {{ email.surname }}
+    {% trans 'Country:' %} {{ email.country }}
+    {% trans 'Job Title:' %} {{ email.job_title }}
+    {% trans 'Phone:' %} {{ email.phone }}
+    {% trans 'Email:' %} {{ email.email }}
+
+{% trans 'To:' %} {{ email.to_email }}
+
+{% trans 'Sent on:' %} {{ email.date }}
+
+{% blocktrans %}
+    Densitron Team
+{% endblocktrans %}

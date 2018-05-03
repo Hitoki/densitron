@@ -1,0 +1,130 @@
+{% load static %}
+<div class="content-box latest-box browse-box">
+    <h2>{{ title }}</h2>
+    <select id="browse-select">
+        <option value="all" {% if browse|linenumbers == cat.id|linenumbers %}selected{% endif %}>All Categories</option>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if browse|linenumbers == cat.id|linenumbers %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <p class="text">{{ help_text }}</p>
+    <ul class="no-desktop column-tabs">
+        <li class="first active">Our Videos</li>
+        <li class="middle">Our Docs</li>
+        <li class="last">What's Happening</li>
+    </ul>
+    <div class="columns-container">
+        <div class="column left border first">
+            <div class="column-holder">
+                <span class="no-mobile column-title">Our Videos</span>
+                {% for item in main_video %}
+                    <div class="column-video column-video-container">
+                        {% if item.get_video.embed_video %}
+                            {{ item.get_video.embed_video|safe }}
+                        {% else %}
+                            <video width="100%" height="100%" controls>
+                                <source src="{{ item.get_video.video }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <div class="video-holder"></div>
+                    </div>
+                    <span class="video-title">{{ item.name }}</span>
+                    <p class="video-text">{{ item.description|safe }}</p>
+                {% endfor %}
+                {% for item in videos %}
+                    <div class="column-video-container">
+                    <div class="video-small left">
+                        {% if item.get_video.embed_video %}
+                            {{ item.get_video.embed_video|safe }}
+                        {% else %}
+                            <video width="100%" height="100%" controls>
+                                <source src="{{ item.get_video.video }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <div class="video-holder"></div>
+                    </div>
+                    <span class="video-title text">{{ item.name }}</span>
+                    <p class="video-text text">{{ item.description|safe }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="paginator">
+                {% if cur_videos == num_videos|first %}
+                    <span class="paginat paginator-arrow left"></span>
+                {% else %}
+                    <a href="?docs={{ cur_docs }}&videos={{ cur_videos|add:"-1" }}&faqs={{ cur_faqs}}" class="paginat paginator-arrow left" ></a>
+                {% endif %}
+                {% for page in num_videos %}
+                    <a href="?docs={{ cur_docs }}&videos={{ page }}&faqs={{ cur_faqs }}" class="paginat paginator-page {% if cur_videos|linenumbers == page|linenumbers %}active{% endif %}">{{ page }}</a>
+                {% endfor %}
+                {% if cur_videos == num_videos|last %}
+                    <span class="paginat paginator-arrow right"></span>
+                {% else %}
+                    <a href="?docs={{ cur_docs }}&videos={{ cur_videos|add:"+1" }}&faqs={{ cur_faqs }}" class="paginat paginator-arrow right"></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="column left border middle">
+            <div class="column-holder">
+                <span class="no-mobile column-title">Our Docs</span>
+                {% for item in docs %}
+                    <div class="column-bullet-container">
+                        <div class="bullet-container">
+                            <span class="bullet pdf left"></span>
+                            <div class="bullet-content">
+                                <p class="text"><a class="bullet-title" href="{{ item.file.url }}" target="_blank">{{ item.name }}</a></p>
+                                <p class="bullet-text text">{{ item.description|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="paginator">
+                {% if cur_docs == num_docs|first %}
+                    <span class="paginat paginator-arrow left"></span>
+                {% else %}
+                    <a href="?docs={{ cur_docs|add:"-1" }}&videos={{ cur_videos }}&faqs={{ cur_faqs}}" class="paginat paginator-arrow left" ></a>
+                {% endif %}
+                {% for page in num_docs %}
+                    <a href="?docs={{ page }}&videos={{ cur_videos }}&faqs={{ cur_faqs }}" class="paginat paginator-page {% if cur_docs|linenumbers == page|linenumbers %}active{% endif %}">{{ page }}</a>
+                {% endfor %}
+                {% if cur_docs == num_docs|last %}
+                    <span class="paginat paginator-arrow right"></span>
+                {% else %}
+                    <a href="?docs={{ cur_docs|add:"+1" }}&videos={{ cur_videos }}&faqs={{ cur_faqs }}" class="paginat paginator-arrow right"></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="column left last">
+            <div class="column-holder">
+                <span class="no-mobile column-title">Our FAQs</span>
+                {% for item in faqs %}
+                <div class="column-bullet-container">
+                    <div class="bullet-container">
+                        <span class="bullet faq left"></span>
+                        <div class="bullet-content">
+                            <p class="bullet-title text">{{ item.name }}</p>
+                            <p class="bullet-text text">{{ item.description|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="paginator">
+                {% if cur_faqs == num_faqs|first %}
+                    <span class="paginat paginator-arrow left"></span>
+                {% else %}
+                    <a href="?docs={{ cur_docs }}&videos={{ cur_videos }}&faqs={{ cur_faqs|add:"-1" }}" class="paginat paginator-arrow left" ></a>
+                {% endif %}
+                {% for page in num_faqs %}
+                    <a href="?docs={{ cur_docs }}&videos={{ cur_videos }}&faqs={{ page }}" class="paginat paginator-page {% if cur_faqs|linenumbers == page|linenumbers %}active{% endif %}">{{ page }}</a>
+                {% endfor %}
+                {% if cur_faqs == num_faqs|last %}
+                    <span class="paginat paginator-arrow right"></span>
+                {% else %}
+                    <a href="?docs={{ cur_docs }}&videos={{ cur_videos }}&faqs={{ cur_faqs|add:"+1" }}" class="paginat paginator-arrow right"></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

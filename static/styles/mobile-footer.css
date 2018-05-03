@@ -1,0 +1,26 @@
+/* ------------  Footer  -------------- */
+
+footer {
+    width: 100%;
+    padding: 0;
+    height: auto;
+}
+
+footer .footer-copyright {
+    line-height: 38px;
+}
+
+footer .footer-copyright a {
+    margin: 0;
+}
+
+footer .footer-copyright span,
+footer .footer-copyright .back-to-top {
+    display: inline-block;
+    width: 100%;
+    font-size: 12px;
+}
+
+footer .footer-copyright .back-to-top {
+    color: #196C7F;
+}

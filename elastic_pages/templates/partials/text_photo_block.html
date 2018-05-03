@@ -1,0 +1,58 @@
+<div class="content-box text-image-box">
+    <h2>{{ title| safe }}</h2>
+    <h3>{{ sub_title| safe }}</h3>
+
+    {% if sub_sub_title %}
+        <h4><a href="#">{{ sub_sub_title| safe }}</a></h4>
+    {% endif %}
+
+    {% if top_text %}
+        <p class="text">{{ top_text| safe }}</p>
+    {% endif %}
+
+    {% if left_photo %}
+        <div class="image-container left">
+            <div class="image">
+                <img src="{{ left_photo.url }}">
+            </div>
+            <a href="#" class="caption">{{ left_photo_caption| safe }}</a>
+        </div>
+    {% endif %}
+
+    {% if right_text %}
+        <div class="floated-text text">
+            <p class="text">{{ right_text | safe }}</p>
+        </div>
+
+    {% endif %}
+
+    {% if middle_text %}
+        <p class="text">{{ middle_text | safe }}</p>
+    {% endif %}
+
+    {% if right_photo %}
+        <div class="image-container right">
+            <div class="image">
+                <img src="{{ right_photo.url }}">
+            </div>
+            <a href="#" class="caption">{{ right_photo_caption| safe }}</a>
+        </div>
+    {% endif %}
+
+    {% if left_text %}
+        <div class="floated-text text">
+            <p>{{ left_text | safe }}</p>
+        </div>
+    {% endif %}
+
+    {% if bottom_text %}
+        <p class="text">{{ bottom_text | safe }}</p>
+    {% endif %}
+
+{#    {% if text_elements %}#}
+        {% for elem in text_elements %}
+            <p class="sub-text text">{{ elem.sub_sub_title | safe }}</p>
+            <p class="text">{{ elem.text | safe }}</p>
+        {% endfor %}
+{#    {% endif %}#}
+</div>

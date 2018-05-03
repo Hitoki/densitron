@@ -1,0 +1,95 @@
+<div class="content-box news-block">
+    {% if news %}
+        <h2>News Feed</h2>
+    {% endif %}
+    <div class="news-mainbar">
+        {% for item in news %}
+            <div class="news-elem">
+                <h3>{{ item.title|safe }}</h3>
+                <span class="datetime">{{ item.publicated|date:"F j Y" }}</span>
+                <p class="text">{{ item.get_short_text|safe}}</p>
+                <a href="/company/news/{{ item.id }}/" class="color-button blue">Read more</a>
+            </div>
+        {% endfor %}
+        {% if new %}
+            <div class="news-elem">
+                <h2>{{ new.title }}</h2>
+                <span class="datetime">{{ new.publicated|date:"F j Y" }}</span>
+                <p class="text">{{ new.top_text|safe }}</p><br>
+
+                {% if new.left_photo %}
+                    <div class="image-holder left">
+                        <img src="{{ new.left_photo.url }}">
+                        <span class="datetime">{{ new.left_photo_caption }}</span>
+                    </div>
+                {% endif %}
+
+                <p class="text">{{ new.middle_text|safe }}</p><br>
+
+                {% if new.right_photo %}
+                    <div class="image-holder right">
+                        <img src="{{ new.right_photo.url }}">
+                        <span class="datetime">{{ new.right_photo_caption }}</span>
+                    </div>
+                {% endif %}
+
+                <p class="text">{{ new.bottom_text|safe }}</p><br>
+
+                <!-- Your share button code -->
+                <div id="fb-root"></div>
+                <div class="fb-share-button"
+                    data-href="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.META.HTTP_HOST }}{{ request.get_full_path }}"
+                    data-layout="button_count" data-mobile-iframe="true">
+                </div>
+                <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                <script type="IN/Share" data-url="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.META.HTTP_HOST }}{{ request.get_full_path }}" data-counter="right"></script>
+            </div>
+            <a href="#back-to-top" class="color-button blue">Back to top</a>
+        {% endif %}
+    </div>
+    <div class="news-sidebar">
+        <h3>Recent Entries</h3>
+        <ul>
+            {% for item in sorted_news %}
+                <li><a href="/company/news/{{ item.id }}/">{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+        <h3>Archives</h3>
+        <ul>
+        {% for year, months in map.items %}
+             <li class="year"><a href="/company/news/?year={{ year }}">{{ year }}</a></li>
+            {% for month, days in months.items %}
+                 <li class="month"><a href="/company/news/?year={{ year }}&month={{ month }}">{{ month }}</a></li>
+                {% for day in days %}
+                     <li class="day"><a href="/company/news/?year={{ year }}&month={{ month }}&day={{ day }}">{{ month }} {{ day }}</a></li>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        <li class="year"><a href="{% url 'site_news_rss' %}">RSS</a></li>
+        </ul>
+    </div>
+</div>
+
+{% if news %}
+    <div class="content-box news-block-paginator">
+        <div class="paginator">
+            {% if cur_news == num_news|first %}
+                <span class="paginat paginator-arrow left"></span>
+            {% else %}
+                <a href="?{% if year %}&year={{ year }}{% endif %}news{% if day %}&day={{ day }}{% endif %}&page={{ cur_news|add:"-1" }}" class="paginat paginator-arrow left" ></a>
+            {% endif %}
+
+            {% for page in num_news %}
+                <a href="?{% if year %}&year={{ year }}{% endif %}{% if month %}&month={{ month }}{% endif %}{% if day %}&day={{ day }}{% endif %}&page={{ page }}" class="paginat paginator-page {% if cur_news|linenumbers == page|linenumbers %}active{% endif %}">{{ page }}</a>
+            {% endfor %}
+
+            {% if cur_news == num_news|last %}
+                <span class="paginat paginator-arrow right"></span>
+            {% else %}
+                <a href="?{% if year %}&year={{ year }}{% endif %}{% if month %}&month={{ month }}{% endif %}{% if day %}&day={{ day }}{% endif %}&page={{ cur_news|add:"+1" }}" class="paginat paginator-arrow right"></a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,9 @@
+<div id="help-box">
+    <p>
+        {{ text | safe }}
+        {% if button %}
+            <a href="{{ button.get_link }}" class="color-button {{ button.get_glyphicon_display|lower }}">{{ button.title | safe }}</a>
+        {% endif %}
+    </p>
+    <span class="no-desktop glyphicon glyphicon-close"></span>
+</div>

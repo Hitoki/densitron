@@ -1,0 +1,139 @@
+{% load static %}
+
+<div class="content-box product-box">
+    <p class="no-mobile scrum">Home > <a href="{% url 'product-technology' %}">Products</a> > <a href="{% url 'product-technology_detail' product.category.technology.id %}">{{ product.category.technology.name }}</a> > {{ product.category.name }} > {{ product.name }}</p>
+    <div class="product-bar-wrapper">
+    <div class="product_in_bar_column left">
+        <div class="product_in_bar_column halfed left">
+            <a href="javascript:history.go(-1);" class="no-desktop color-button blue reverse small">Back</a><h2>{{ product.get_name }}</h2>
+            <div class="product-detail-gallery">
+                <div class="fotorama" data-nav="thumbs" data-width="calc(100% - 2px)" data-height="100%" data-maxheight="400px">
+                {% for image in product.productimage_set.all %}
+                    <a href="{{ image.image.url }}"><img src="{{ image.image.url }}"></a>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="product_in_bar_column halfed left">
+            <div class="product-category-header">
+                <ol>
+                    <li class="active">Item specifics</li>
+                    <li>Description</li>
+                    <li>Spec</li>
+                    <li>Extra Info</li>
+                </ol>
+            </div>
+            <div class="product_in_bar active">
+                <ul class="text">
+                {% for key, value in product.get_info_list.items %}
+                    <li><strong>{{ key }}</strong>: {{ value }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="product_in_bar">
+                <p class="text">{{ product.description|safe }}</p>
+            </div>
+            <div class="product_in_bar spec">
+                <span class="bullet pdf left"></span>
+                <h3>{{ product.spec.name }}</h3><br><br>
+                {{ product.spec.description | safe }}
+                {% if request.session.doc_download %}
+                    <a href="{{ product.spec.file.url }}" class="color-button green"><strong>Download</strong> ({{ product.spec.get_size }})</a>
+                {% else %}
+                    <span class="color-button green download-but"><strong>Download</strong> ({{ product.spec.get_size }})</span>
+                {% endif %}
+            </div>
+            <div class="product_in_bar application">
+                {% for application in product.application.all %}
+                    {% if application.image %}<img src="{{ application.image.url }}">{% endif %}
+                    <h3>{{ application.title }}</h3><br><br>
+                    <p class="text">{{ application.description|safe }}</p>
+                {% endfor %}
+            </div>
+            {% if product.evaluation_kit %}<a href="{% url 'product-product_detail' product.category.id product.category.technology.id product.id %}evaluation_kit/" class="color-button green">Buy Eval Kit - <strong>£{{ product.price }}</strong></a>{% endif %}
+            <!-- <a href="#" class="color-button grey plus">Add to my List</a> -->
+            <a href="/product_found/?page=1&technology={{ product.category.technology.id }}&category={{ product.category.id }}" class="color-button orange">All <strong>standard</strong> versions</a>
+            <a href="/products/bespoke-orders/" class="color-button blue"><strong>Bespoke</strong> orders</a>
+        </div>
+    </div>
+    <div class="product_in_bar_column halfed left border">
+        <h3>Why Densitron?</h3>
+        {% for item in product.why_dens.all %}
+            <div class="bullet-container">
+                <span class="bullet okey-green left"></span>
+                <div class="bullet-content">
+                    <p class="bullet-title">{{ item.name }}</p>
+                    <p class="bullet-text">{{ item.text|safe }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="product_in_bar_column halfed left orange">
+        <h3>Commonly used when you need...</h3>
+        {% for item in product.commonly_used.all %}
+        <div class="bullet-container">
+            <span class="bullet okey left"></span>
+            <div class="bullet-content">
+                <p class="bullet-title">{{ item.name }}</p>
+                <p class="bullet-text">{{ item.text|safe }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="product_in_bar_column">
+        <h3>Commonly used in...</h3>
+        <ul class="used_in">
+            {% for item in product.commonly_used_in.all %}
+            <li class="bullet left" style="background: url('{{item.image.url}}') no-repeat;">
+                {{ item.name }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{#    <div class="product_in_bar_column">#}
+{#        <h3>Compare with...</h3>#}
+{#        <select>#}
+{#            <option>Select a product</option>#}
+{#            <option>OLED - EG-1234FC-1F</option>#}
+{#        </select>#}
+{#    </div>#}
+    <div class="product_in_bar_column">
+        <h3>Have you thought about these?</h3>
+        <div class="products-gallery">
+            {% for item in product.category.technology.category_set.all %}
+                {% if not forloop.counter > 4 %}
+                    <div class="product">
+                        <img src="{{ item.image.url }}">
+                        <a href="/products/{{ product.category.technology.id }}/">{{ item.name }}</a>
+                        <p class="">{{ item.description|safe }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="no-desktop products-gallery-buttons">
+                <span class="arrow left"></span>
+                <span class="arrow right"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="download-holder">
+    <div class="download">
+        <span class="close glyphicon glyphicon-close-blue"></span>
+        <h2><strong>Download Spec: {{ product.spec.name }}</strong></h2>
+        <form>
+            {% csrf_token %}
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="surname" required>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+            <span class="color-button green submit">
+                <strong>Download</strong> ({{ product.spec.get_size }})
+            </span>
+            <input type="submit" hidden>
+            <input type="text" id="doc" name="doc" value="{{ product.spec.name }}" hidden>
+        </form>
+    </div>
+</div>
+</div>

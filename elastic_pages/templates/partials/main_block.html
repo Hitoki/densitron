@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="content-box main-box">
+    <p class="no-mobile"><a href="/">Home</a> >
+        {{ title }}</p>
+    <h2>{{ title }}</h2>
+    <img class="no-desktop" src="{{ image }}" width="100%">
+    <img class="no-mobile head-image" src="{{ image }}" width="100%">
+    <p>{{ text | safe }}</p>
+</div>

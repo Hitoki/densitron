@@ -1,0 +1,89 @@
+{% load static %}
+
+<header>
+    <div class="header-logo-box">
+        <div class="left-block">
+            <a href="/" class="logo">
+                <img src="{{ logo }}">
+            </a>
+            <span class="border-vertical-line"></span>
+            <form class="left" action="" method="post">
+                {% csrf_token %}
+                <select class="lang-dropdown">
+                    <option value="GB" {% if country == 'GB' %}selected{% endif %}>UK</option>
+                    <option value="US" {% if country == 'US' %}selected{% endif %}>US</option>
+                    <option value="ROw" {% if country == 'ROW' %}selected{% endif %}>ROW</option>
+                </select>
+            </form>
+            <!--For mobile search and menu-->
+            <div class="no-desktop mobile-header-line">
+                <div class="search-box">
+                    <button class="mobile-search"><span class="glyphicon glyphicon-search"></span></button>
+                    <div class="search-popup">
+                        <input type="search" id="search-mobile" class="search"/>
+                    </div>
+                </div>
+                <div class="menu-box">
+                    <button class="mobile-menu">Menu</button>
+                    <ol class="mobile-menu-list">
+                        {% for element in d_d_menu %}
+                            {% if element.drop_links.all %}
+                                <li>{{ element.title }}</li>
+                                {% for link in element.drop_links.all %}
+                                    <li><a href="{{ link.get_link }}" {% if link.is_target_link %}target="_blank"{% endif %}>{{ link.title }}{% if link.is_target_link %}<span class="glyphicon glyphicon-new-window"></span>{% endif %}</a></li>
+                                {% endfor %}
+                            {% else %}
+                                <li><a href="{{ element.get_link }}" {% if element.is_target_link %}target="_blank"{% endif %}>{{ element.title }}{% if element.is_target_link %}<span class="glyphicon glyphicon-new-window"></span>{% endif %}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            <!--End For mobile search and menu-->
+        </div>
+        <div class="no-mobile right-block">
+            <div class="search-box">
+                <label for="search">Search</label>
+                <input id="search" class="search" type="search" name="q">
+            </div>
+            {% if soc_links %}
+                <div class="socsites-box">
+                    <span class="border-vertical-line"></span>
+                    {% for element in soc_links %}
+                        <a href="{{ element.external_link }}"><img src="{{ element.soc_image.url }}"></a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="no-mobile header-panel-box">
+        <ol class="left-block">
+            {% for element in d_d_menu %}
+                {% if element.drop_links.all %}
+                    <li tabindex="0" class="dropdown-block">
+                        <a href="#">{{ element.title }}</a>
+                        <ul>
+                            {% for link in element.drop_links.all %}
+                                <li><a href="{{ link.get_link }}" {% if link.is_target_link %}target="_blank"{% endif %}>{{ link.title }}{% if link.is_target_link %}<span class="glyphicon glyphicon-new-window"></span>{% endif %}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ element.get_link }}" {% if element.is_target_link %}target="_blank"{% endif %}>{{ element.title }}{% if element.is_target_link %}<span class="glyphicon glyphicon-new-window"></span>{% endif %}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <img class="imgpsh" src="{% static 'images/imgpsh_fullsize.png' %}">
+
+        {% if auth_menu %}
+        <ol class="right-block">
+            <li>
+                <a href="#">Log In</a>
+            </li>
+            <li>
+                <a href="#">My Wish List</a>
+            </li>
+        </ol>
+        {% endif %}
+    </div>
+</header>

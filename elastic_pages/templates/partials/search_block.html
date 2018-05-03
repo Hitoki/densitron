@@ -1,0 +1,101 @@
+<div class="content-box search-box">
+    <h2>{{ title }}</h2>
+    <input class="search {% if not page %}knowledge_base_search{% endif %}" id="search" type="text" value="{{ search_name }}">
+    <p class="text no-mobile">{{ help_text }}</p>
+    {% if results or results == 0 %}
+        <p class="text results">Your search returned {{ results }} result{% if results != 1 %}s{% endif %}.</p>
+        <span class="no-desktop build_display_but color-button reverse blue">Filter</span>
+{#        <label for="sort_results" class="sort">Sort</label>#}
+{#        <select name="sort_results" id="sort_results">#}
+{#            <option value="-name">Category</option>#}
+{#        </select>#}
+    {% endif %}
+</div>
+{% if results %}
+<div class="gray-line"></div>
+<div class="content-box accordion sidebar-accordion search-container">
+    <div class="sidebar">
+        <div class="no-desktop filter-done">
+            <p class="text"><strong>Filter - {{ results }} Product{% if results != 1 %}s{% endif %} Found </strong></p>
+            <span class="done shut-down">Done</span>
+        </div>
+        <div class="header">
+            <span></span>
+        </div>
+
+{#        <div class="header">#}
+{#            <span>Category</span>#}
+{#            <span class="right expand"><span class="title"></span><span class="arrow right"></span></span>#}
+{#            <span class="right collapse"><span class="title"></span><span class="arrow right"></span></span>#}
+{#        </div>#}
+{#        <div class="header-accordion-content">#}
+{##}
+{#        </div>#}
+{#        <div class="header">#}
+{#            <span>Filter 2</span>#}
+{#            <span class="right expand"><span class="title"></span><span class="arrow right"></span></span>#}
+{#            <span class="right collapse"><span class="title"></span><span class="arrow right"></span></span>#}
+{#        </div>#}
+{#        <div class="header-accordion-content">#}
+{##}
+{#        </div>#}
+    </div>
+    <div class="content">
+        {% for name, item in items.items %}
+            {% if name == 'Products' %}
+                {% if item %}
+                    <h2>{{ name }}</h2>
+                {% endif %}
+                {% for i in item %}
+                    <div class="product-box">
+                        <h2><a href="{% url 'product_found' %}?technology={% if i.technology.id %}{{ i.technology.id }}{% else %}{{ i.id }}{% endif %}">{{ i.name }}</a></h2>
+                        <img class="no-mobile" src="{{ i.image.url }}">
+                        {% if i.technology.id %}
+                            <p class="text"><a href="/">Home</a> > <a href="{% url 'product-technology' %}">Products</a> > <a href="{% url 'product-technology_detail' i.technology.id %}">{{ i.technology.name }}</a> > <a href="{% url 'product_found' %}?technology={{ i.technology.id }}">{{ i.name }}</a></p>
+                        {% else %}
+                            <p class="text"><a href="/">Home</a> > <a href="{% url 'product-technology' %}">Products</a> > <a href="{% url 'product-technology_detail' i.id %}">{{ i.name }}</a></p>
+                        {% endif %}
+                        <p class="text">{{ i.description|safe }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% if item %}
+                    <h2>{{ name }}</h2>
+                {% endif %}
+                {% for i in item %}
+                    <div class="product-box">
+                        {% if i.technology.id %}
+                            <h2><a href="{% url 'services-service_detail' i.technology.id %}">{{ i.name }}</a></h2>
+                        {% else %}
+                            <h2><a href="{% url 'services-service_detail' i.id %}">{{ i.name }}</a></h2>
+                        {% endif %}
+                        <img class="no-mobile" src="{{ i.image.url }}">
+                        {% if i.technology.id %}
+                            <p class="text"><a href="/">Home</a> > <a href="{% url 'services-service_list' %}">Services</a> > <a href="{% url 'services-service_detail' i.technology.id %}">{{ i.technology.name }}</a></p>
+                        {% else %}
+                            <p class="text"><a href="/">Home</a> > <a href="{% url 'services-service_list' %}">Services</a> > <a href="{% url 'services-service_detail' i.id %}">{{ i.name }}</a></p>
+                        {% endif %}
+                        <p class="text">{{ i.description|safe }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        <div class="paginator">
+
+            {% if page|linenumbers == num_items|first|linenumbers %}
+                <span class="paginat paginator-arrow left"></span>
+            {% else %}
+                <a href="?page={{ page|add:"-1" }}&q={{ search_name }}" class="paginat paginator-arrow left" ></a>
+            {% endif %}
+            {% for page_item in num_items %}
+                <a href="?page={{ page_item }}&q={{ search_name }}" class="paginat paginator-page {% if page|linenumbers == page_item|linenumbers %}active{% endif %}">{{ page_item }}</a>
+            {% endfor %}
+            {% if page|linenumbers == num_items|last|linenumbers %}
+                <span class="paginat paginator-arrow right"></span>
+            {% else %}
+                <a href="?page={{ page|add:"+1" }}&q={{ search_name }}" class="paginat paginator-arrow right"></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}

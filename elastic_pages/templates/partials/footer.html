@@ -1,0 +1,34 @@
+<footer>
+    <div class="no-mobile footer-panel-block">
+        {% for link in top_links %}
+            <ul>
+                <li>{{ link.title }}</li>
+                {% for link_elem in link.drop_links.all %}
+                    <li><a href="{{ link_elem.get_link }}" {% if link_elem.is_target_link %}target="_blank"{% endif %}>{{ link_elem.title }}{% if link_elem.is_target_link %}<span class="glyphicon glyphicon-new-window"></span>{% endif %}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        {% if contact %}
+            <ul>
+                <li>{{ contact }}</li>
+                {% for address in top_contacts %}
+                    <li>
+                        <ul>
+                            <li>{{ address.title | safe }}</li>
+                            <li>{{ address.line_1 | safe }}</li>
+                            <li>{{ address.line_2 | safe }}</li>
+                            <li>T {{ address.phone }}</li>
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif%}
+    </div>
+    <div class="footer-copyright">
+        <span>{{ bot_copy_right | safe }}</span>
+        {% for link in bot_link %}
+            <a href="{{ link.get_link }}" class="no-mobile">{{ link | safe }}</a>
+        {% endfor %}
+        {% if bot_back_top %}<a href="#back-to-top" class="back-to-top">Back to Top</a>{% endif %}
+    </div>
+</footer>

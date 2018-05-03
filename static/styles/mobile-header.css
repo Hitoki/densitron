@@ -1,0 +1,142 @@
+/* ------------   Header  -------------- */
+
+.glyphicon-close {
+    background: url(../images/glyphicon-close.jpeg) no-repeat 100% /100% 100%;
+    width: 12px;
+    height: 14px;
+}
+
+.glyphicon-search {
+    background: url(../images/glyphicon-search.jpeg) no-repeat 100% /100% 100%;
+    width: 22px;
+    height: 22px;
+}
+
+.no-desktop {
+    display: block;
+}
+
+header {
+    padding: 0;
+    width: 100%;
+    margin: 0;
+    height: 80px;
+}
+
+/* -- Header: -- Logo line ------------- */
+
+.header-logo-box {
+    margin-top: 16px;
+}
+
+.header-logo-box .logo {
+    height: 30px;
+    width: 100px;
+    margin: 12px 0 0 10px;
+    background: url(../images/logo.jpeg) no-repeat 100% / 100% 100%;
+}
+
+.header-logo-box .logo img {
+    height: 30px;
+    width: 100px;
+}
+
+.header-logo-box .lang-dropdown {
+    margin: 12px 0 0 0;
+    padding: 0 10px 0 0;
+    font-size: 20px;
+}
+
+.header-logo-box .border-vertical-line {
+    margin: 8px 4px 0 10px;
+    width: 1px;
+    height: 36px;
+}
+
+.header-logo-box .left-block {
+    width: 100%;
+}
+
+/* -- Header:Logo line: - Left Block --- */
+
+.no-desktop.mobile-header-line {
+    width: 38%;
+    float: right;
+    margin-right: 10px;
+}
+
+.no-desktop .search-box .search-popup {
+    display: none;
+}
+
+.no-desktop .menu-box .mobile-menu-list {
+    top: 66px;
+    right: 0;
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    background-color: #000000;
+    opacity: 0.9;
+    filter: alpha(Opacity=90);
+    width: 90%;
+    margin-right: 5%;
+    font-size: 32px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 64px;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.no-desktop .menu-box .mobile-menu,
+.no-desktop .search-box .mobile-search {
+    background: #28ADCC;
+    color: #FFFFFF;
+    font-size: 22px;
+    border-radius: 50px 50px 50px 50px;
+    -moz-border-radius: 50px 50px 50px 50px;
+    -webkit-border-radius: 50px 50px 50px 50px;
+    border: 0 solid #FFFFFF;
+    line-height: 50px;
+    float: right;
+    padding: 0 10px;
+    margin-right: 0;
+}
+
+.no-desktop .search-box .mobile-search {
+    background: #5886C4;
+    padding: 10px 12px 0 4px;
+    margin: 0;
+    line-height: 40px;
+}
+
+.no-desktop .menu-box .mobile-menu-list li {
+    border: 1px solid #FFFFFF;
+}
+
+.no-desktop .menu-box .mobile-menu-list li a {
+    width: 100%;
+    display: inline-block;
+    color: #196C7F;
+    text-decoration: none;
+}
+
+/* -- Header: -- Help Box  ------------- */
+
+#help-box {
+    padding: 15px 70px 12px 10px;
+    position: relative;
+}
+
+#help-box p {
+    text-align: left;
+    line-height: 32px;
+    font-size: 14px;
+}
+
+#help-box .glyphicon-close {
+    position: absolute;
+    z-index: 1000;
+    top: 22px;
+    right: 36px;
+}

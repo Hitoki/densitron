@@ -1,0 +1,8 @@
+<a href="{{ link }}" class="content-box bespoke-screen-box">
+    <h1>{{ title_top }}</h1>
+    {% if button %}
+        <a href="{{ button.get_link }}" class="no-mobile color-button {{ button.get_glyphicon_display|lower }}">Get it right first time<{{ button.title|safe }}</a>
+    {% endif %}
+    <h1>{{ title_bottom }}</h1>
+    <img src="{{ background.url }}" class="bespoke-image">
+</a>

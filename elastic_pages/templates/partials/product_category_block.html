@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="content-box product-bar-box {% if services %}service-box{% endif %}">
+    <div class="no-desktop product-category-header">
+        <ol>
+            {% for tech in technologies %}
+                <li class="{% if forloop.first %}active{% endif %}">
+                <img src="{{ tech.get_thumbnail.url }}">
+                <h3>{{ tech.name }}</h3>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="product-bar-wrapper">
+        {% for tech in technologies %}
+            <div class="product_in_bar {% if forloop.first %}active{% endif %}">
+                <div>
+                    <a href="/{{ path }}/{{ tech.id }}"><img src="{{ tech.get_thumbnail.url }}"></a>
+                    <h3><a href="/{{ path }}/{{ tech.id }}">{{ tech.name }}</a></h3>
+                </div>
+                {% if is_detail_list %}
+                    <ul>
+                        {% for cat in tech.category_set.all %}
+                            {% if country in cat.country_flag.all %}
+                                <li><a href="/product_found/?technology={{ cat.id }}">{{ cat.name }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        <li class="no-desktop"><a class="color-button blue" href="{% url 'product-technology_detail' tech.id %}">
+                            View <strong>detail</strong> version</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

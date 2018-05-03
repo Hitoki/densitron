@@ -1,0 +1,56 @@
+{% load staticfiles %}
+{% load include_tags %}
+
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,0">
+        <title>{{ page_settings.title }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/reset.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/footer.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/header.css' %}">
+        <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 736px)" href="{% static 'styles/mobile-base.css' %}" />
+        <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 736px)" href="{% static 'styles/mobile-footer.css' %}" />
+        <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 736px)" href="{% static 'styles/mobile-header.css' %}" />
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="{% static 'js/header.js' %}"></script>
+        <script src="{% static 'js/about_us.js' %}"></script>
+    </head>
+    <body>
+        {% if page_settings.header_block %}
+            {% header_block page_settings %}
+        {% endif %}
+
+        {% if page_settings.help_box_block %}
+            {% help_box_block page_settings %}
+        {% endif %}
+
+        <div id="content">
+            {% if page_settings.main_block %}
+                {% main_block page_settings %}
+            {% endif %}
+            {% if page_settings.what_you_need_block %}
+                {% whatyouneed_block page_settings %}
+            {% endif %}
+            {% if page_settings.worldpay_slide_block %}
+                {% worldpay_slide_block page_settings %}
+            {% endif %}
+            {% if page_settings.posts_gallery_block %}
+                {% posts_gallery_block page_settings %}
+            {% endif %}
+            {% if page_settings.bespoke_screen_block %}
+                {% bespoke_screen_block page_settings %}
+            {% endif %}
+            {% if page_settings.latest_block %}
+                {% latest_block latest_box %}
+            {% endif %}
+        </div>
+
+        {% if page_settings.footer_block %}
+            {% footer_block page_settings %}
+        {% endif %}
+    </body>
+</html>

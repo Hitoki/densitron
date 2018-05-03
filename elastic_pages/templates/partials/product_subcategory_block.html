@@ -1,0 +1,101 @@
+{% load static %}
+
+<div class="content-box product-bar-detail-box">
+    <div class="product-category-header">
+        <ol>
+            {% for cat in technology.category_set.all %}
+                {% if country in cat.country_flag.all %}
+                    <li>
+                        <img src="{% static cat.image.url %}">
+                        <h3>{{ cat.name }}</h3>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% for service in service.subservice_set.all %}
+                <li class="{% if forloop.first %}active{% endif %}">
+                    <h3>{{ service.name }}</h3>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="product-bar-wrapper">
+        {% for cat in technology.category_set.all %}
+            {% if country in cat.country_flag.all %}
+                <div class="product_in_bar">
+                    <div class="product_in_bar_column halfed">
+                        <h3>Overview</h3>
+                        <p class="text">{{ cat.description|safe }}</p>
+                        <a href="{% url 'product_found' %}?page=1&technology={{ technology.id }}&category={{ cat.id }}" class="color-button orange">View <strong>standard</strong> versions</a>
+                        <a href="{% url 'products-bespoke_orders' %}" class="color-button blue"><strong>Bespoke</strong> orders</a>
+                    </div>
+                    <div class="product_in_bar_column halfed">
+                        <h3>Commonly used when you need...</h3>
+                        {% for bullet in cat.commonly_used.all %}
+                            <div class="bullet-container">
+                                <span class="bullet okey left"></span>
+                                <div class="bullet-content">
+                                    <p class="bullet-title">{{ bullet.name }}</p>
+                                    <p class="bullet-text">{{ bullet.text|safe }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="product_in_bar_column">
+                        <h3>Commonly used in...</h3>
+                        <ul>
+                            {% for item in cat.commonly_used_in.all %}
+                                <li class="bullet left" style="background: url('{{item.image.url}}') no-repeat;">
+                                    {{ item.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for services in service.subservice_set.all %}
+            <div class="product_in_bar {% if forloop.first %}active{% endif %}">
+                <div class="product_in_bar_column large">
+                    <div class="service_text text" style="width: 100%">
+                        {{ services.description|safe }}
+                    </div>
+                </div>
+            {% for character in services.characteristic.all %}
+                <div class="product_in_bar_column large">
+                    <h3>{{ character.name }}</h3>
+                    <div class="service_text text">
+                        {{ character.text|safe }}
+                        <a class="color-button orange no-mobile" href="{{ character.image.url }}" target="_blank">View enlarged image</a>
+                    </div>
+                    <img src="{{ character.image.url }}" class="right">
+                </div>
+            {% endfor %}
+                <div class="product_in_bar_column halfed">
+                    <h3>Why Densitron?</h3>
+                    <div class="bullet-container green">
+                        {% for bullet in services.why_densitron.all %}
+                            <span class="bullet okey-green left"></span>
+                            <div class="bullet-content">
+                                <p class="bullet-title">{{ bullet.name }}</p>
+                                <p class="bullet-text">{{ bullet.text }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="product_in_bar_column halfed">
+                    <h3>Key benefits...</h3>
+                    <div class="bullet-container">
+                        {% for bullet in services.key_benefits.all %}
+                            <span class="bullet okey left"></span>
+                            <div class="bullet-content">
+                                <p class="bullet-title">{{ bullet.name }}</p>
+                                <p class="bullet-text">{{ bullet.text }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
